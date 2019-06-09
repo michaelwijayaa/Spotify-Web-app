@@ -13,6 +13,7 @@ var cors = require('cors');
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
 const playerRoute = require('./routes/player');
+const playlistsRoute = require('./routes/playlist');
 const morgan = require('morgan')
 
 var client_id = '03cca88fbccb4a9f8d9b70a283b31337'; // Your client id
@@ -44,8 +45,9 @@ app.use(express.static(__dirname + '/public'))
 
 app.use(morgan('dev'))
 
-//player route
+//Routes go here
 app.use('/player', playerRoute);
+app.use('/playlists', playlistsRoute);
 
 
 app.get('/login', function(req, res) {
