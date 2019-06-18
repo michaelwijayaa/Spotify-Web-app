@@ -47,6 +47,9 @@
             <dt>Profile Image</dt><dd class="clearfix"><a href="{{images.0.url}}">{{images.0.url}}</a></dd>
             <dt>Country</dt><dd>{{country}}</dd>
           </dl>
+          <a href="/devices.html" class="btn btn-primary">Devices</a>
+          <a href="/player/nowplaying" class="btn btn-primary">Now Playing</a>
+          <a href="/player/recent" class="btn btn-primary">Recently Played</a>
         </div>
       </div>
     </script>
@@ -109,7 +112,7 @@
                 },
                 success: function(response) {
                   userProfilePlaceholder.innerHTML = userProfileTemplate(response);
-
+                  console.log(response);
                   $('#login').hide();
                   $('#loggedin').show();
                 }

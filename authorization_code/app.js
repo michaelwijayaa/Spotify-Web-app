@@ -128,8 +128,6 @@ app.get('/callback', function(req, res) {
   }
 });
 
-
-
 app.get('/getrecent', function(req,res){
   //USE COOKIES!
     var access_token = req.cookies.token;
@@ -142,7 +140,6 @@ app.get('/getrecent', function(req,res){
     request.get(options,function(error,response,body){
       console.log(body);
     })
-  
 })
 
 app.get('/refresh_token', function(req, res) {

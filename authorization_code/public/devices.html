@@ -1,9 +1,61 @@
 <!DOCTYPE html>
 <html>
     <head>
-        
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     </head>
     <body>
-        
+        <div class="container">
+                <h1>These are your available devices.</h1>
+            <div id="devices">
+            </div>
+            <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.1/handlebars.min.js"></script>
+            <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+
+            <script id="device-template" type="text/x-handlebars-template">
+                  <div class="media-body">
+                    <dl class="dl-horizontal">
+                      <dt>Name</dt><dd>{{devices.0.name}}</dd>
+                      <dt>Type</dt><dd>{{devices.0.type}}</dd>
+                      <dt>Active</dt><dd>{{devices.0.is_active}}</dd>
+                      <dt>Volume</dt><dd>{{devices.0.volume_percent}}</dd>
+                    </dl>
+                  </div>
+                </div>
+              </script>
+            <script>
+            var deviceSource = document.getElementById('device-template').innerHTML,
+            deviceTemplate = Handlebars.compile(deviceSource),
+            devicePlaceholder = document.getElementById('devices');
+
+            //GET COOKIE FUNC
+            function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+            $.ajax({
+                url: '/player/devices',
+                headers: {
+                    'Authorization': 'Bearer ' + getCookie('token')
+                },
+                success: function(response){
+                    devicePlaceholder.innerHTML = deviceTemplate(response.devices);
+                    console.log(response);
+                }
+            });
+            
+
+            </script>
+
     </body>
 </html>
